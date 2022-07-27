@@ -1,10 +1,16 @@
 package com.techtree.Crud.service.impl;
 
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +25,13 @@ public class employeeserviceimpl implements Employeeservice {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
+//	@PostConstruct
+//	public void initDB() {
+//		List<Employee> emp = IntStream.range(1, 50)
+//				.mapToObj(i->new Employee(i, "empl"+i ,"lastname"+i, "mail@gmail.com"+new Random().nextInt(100))).collect(Collectors.toList());
+//		employeeRepository.saveAll(emp);
+//	}
 //	@Override
 //	public List<Employee> saveEmployee1(List<Employee> employee) {	
 //			
@@ -162,5 +175,21 @@ public class employeeserviceimpl implements Employeeservice {
 	public List<Employee> findByfnameexactContaining(String fname) {
 		
 		return employeeRepository.findByfnameLike(fname);
+	}
+
+	@Override
+	public ResponseEntity<Response<List<Employee>>>  findEmployeeWithSorting(String field) {
+		Response<List<Employee>> res = new Response<List<Employee>>();
+		res.setMessage("list foound by asc order");
+		res.setData(employeeRepository.findAll(Sort.by(Sort.Direction.ASC,field)));
+		return new ResponseEntity<Response<List<Employee>>>(res,HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<Response<Page<Employee>>> findEmpByPagination(int offset, int pagesize) {
+		Response<Page<Employee>> res = new Response<Page<Employee>>();
+		res.setMessage("offset of"+offset+"size"+pagesize);
+		res.setData(employeeRepository.findAll(PageRequest.of(offset, pagesize)));
+		return new ResponseEntity<Response<Page<Employee>>>(res,HttpStatus.OK);
 	}
 }

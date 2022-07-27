@@ -21,8 +21,15 @@ public class Employee {
 	@Column(name="email", nullable=false)
 	private String email=null;
 	
-	
-	
+
+
+//	public Employee(long id, String fname, String lname, String email) {
+//		super();
+//		this.id = id;
+//		this.fname = fname;
+//		this.lname = lname;
+//		this.email = email;
+//	}
 	public long getId() {
 		return id;
 	}

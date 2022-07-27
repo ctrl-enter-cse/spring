@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,6 @@ public class EmployeeController {
 	public  ResponseEntity<Response<Employee>> saveEmployee( @RequestBody Employee employee){
 		System.out.println(employee);
 		return employeeservice.saveEmployee(employee);
-		
 	}
 	
 	@GetMapping( path="/getemployeelist")
@@ -81,4 +81,13 @@ public class EmployeeController {
 		return employeeservice.findByfnameexactContaining(title);
 	}
 	
+	@GetMapping("/{field}")
+	public ResponseEntity<Response<List<Employee>>> sortbyfield(@PathVariable("field") String field){
+		return employeeservice.findEmployeeWithSorting(field);
+	}
+	
+	@GetMapping("/pagination/{offset}/{size}")
+	public ResponseEntity<Response<Page<Employee>>> findEmpByPagination(@PathVariable int offset, @PathVariable int size){
+		return employeeservice.findEmpByPagination(offset, size);
+}
 }

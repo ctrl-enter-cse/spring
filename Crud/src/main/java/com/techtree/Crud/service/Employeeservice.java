@@ -3,6 +3,7 @@ package com.techtree.Crud.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 import com.techtree.Crud.model.Employee;
@@ -42,4 +43,12 @@ public interface Employeeservice {
 	
 	//exact search
 	List<Employee> findByfnameexactContaining(String fname);
+
+	
+//	search by feild 
+	public ResponseEntity<Response<List<Employee>>>  findEmployeeWithSorting(String field);
+		
+	
+	// seach by pageniation
+	public  ResponseEntity<Response<Page<Employee>>> findEmpByPagination(int offset,int pagesize);
 }
