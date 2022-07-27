@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "spring.jpa.hibenate.dialect",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.hibenate.dialect'"
+  },
+  {
+    "name": "Spring.jpa.hibernate.ddl-auto",
+    "type": "java.lang.String",
+    "description": "A description for 'Spring.jpa.hibernate.ddl-auto'"
+  }
+]}
