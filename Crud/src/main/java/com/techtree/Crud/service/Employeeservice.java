@@ -40,4 +40,6 @@ public interface Employeeservice {
 	// like from with jpa onlu
 	List<Employee> findByfnameContaining(String fname);
 	
+	//exact search
+	List<Employee> findByfnameexactContaining(String fname);
 }

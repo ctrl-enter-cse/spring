@@ -1,10 +1,10 @@
 package com.techtree.Crud.service.impl;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.Http2;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -156,5 +156,11 @@ public class employeeserviceimpl implements Employeeservice {
 //		assertEquals(3, results.size());	 
 //				new ResponseEntity<Response<List<Employee>>>(res, HttpStatus.OK);
 				return employeeRepository.findByfnameContaining(fname);
+	}
+
+	@Override
+	public List<Employee> findByfnameexactContaining(String fname) {
+		
+		return employeeRepository.findByfnameLike(fname);
 	}
 }

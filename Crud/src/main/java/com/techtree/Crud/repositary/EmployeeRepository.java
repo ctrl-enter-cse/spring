@@ -27,4 +27,5 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long >  {
 	
 	List<Employee>findByfnameContaining(String fname);
 //	List<Employee> findByEmployeeNameContainingIgnoreCase(@Param("name")String name);
+	List<Employee>findByfnameLike(String fname);
 }

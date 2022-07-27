@@ -76,4 +76,9 @@ public class EmployeeController {
 	public List<Employee> findByTitleContaining( @RequestParam("title") String title){
 		return employeeservice.findByfnameContaining(title);
 	}
+	@GetMapping("/searchbyexact")
+	public List<Employee> findByTitleLike( @RequestParam("title") String title){
+		return employeeservice.findByfnameexactContaining(title);
+	}
+	
 }
