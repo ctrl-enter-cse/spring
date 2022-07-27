@@ -25,6 +25,6 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long >  {
 	Employee updateemp(String newfname, long id);
 	
 	
-//	List<Employee> findByTitleContaining(String title);
-	List<Employee> findByEmployeeNameContainingIgnoreCase(@Param("name")String name);
+	List<Employee>findByfnameContaining(String fname);
+//	List<Employee> findByEmployeeNameContainingIgnoreCase(@Param("name")String name);
 }

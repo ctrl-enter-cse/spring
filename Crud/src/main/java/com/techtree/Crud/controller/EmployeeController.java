@@ -73,7 +73,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/searchby")
-	public ResponseEntity<Response<List<Employee>>> findByTitleContaining(String title){
-		return employeeservice.findByTitleContaining(title);
+	public List<Employee> findByTitleContaining( @RequestParam("title") String title){
+		return employeeservice.findByfnameContaining(title);
 	}
 }

@@ -38,6 +38,6 @@ public interface Employeeservice {
 	
 	
 	// like from with jpa onlu
-	ResponseEntity<Response<List<Employee>>>findByTitleContaining(String title);
+	List<Employee> findByfnameContaining(String fname);
 	
 }

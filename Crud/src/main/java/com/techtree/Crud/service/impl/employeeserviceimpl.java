@@ -148,13 +148,13 @@ public class employeeserviceimpl implements Employeeservice {
 	
 
 	@Override
-	public ResponseEntity<Response<List<Employee>>> findByTitleContaining(String title) {
+	public  List<Employee> findByfnameContaining(String fname) {
 //		List<Employee> results = employeeRepository.findByEmployeeNameContainingIgnoreCase(title);
 //		Response<List<Employee>> res = new Response<List<Employee>>();
 //		res.setMessage("got data");
 //		res.setData(results);
 //		assertEquals(3, results.size());	 
 //				new ResponseEntity<Response<List<Employee>>>(res, HttpStatus.OK);
-				return null;
+				return employeeRepository.findByfnameContaining(fname);
 	}
 }
