@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,8 +21,8 @@ public class Employee {
 	private String lname=null;
 	@Column(name="email", nullable=false)
 	private String email=null;
-	
-
+	@OneToOne
+	private Laptop laptop;
 
 //	public Employee(long id, String fname, String lname, String email) {
 //		super();
@@ -30,8 +31,15 @@ public class Employee {
 //		this.lname = lname;
 //		this.email = email;
 //	}
+	
 	public long getId() {
 		return id;
+	}
+	public Laptop getLaptop() {
+		return laptop;
+	}
+	public void setLaptop(Laptop laptop) {
+		this.laptop = laptop;
 	}
 	public void setId(long id) {
 		this.id = id;
@@ -58,7 +66,8 @@ public class Employee {
 	}
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", fname=" + fname + ", lname=" + lname + ", email=" + email + "]";
+		return "Employee [id=" + id + ", fname=" + fname + ", lname=" + lname + ", email=" + email + ", laptop="
+				+ laptop + "]";
 	}
 	
 	

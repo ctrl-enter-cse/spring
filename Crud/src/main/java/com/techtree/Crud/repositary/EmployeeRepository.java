@@ -16,7 +16,7 @@ import com.techtree.Crud.model.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee,Long >  {
 
 
-	@Query(value="SELECT * FROM employee_details WHERE first_name  LIKE %?1% ",nativeQuery=true)
+	@Query(value="SELECT * FROM employee_details emp WHERE  emp.first_name LIKE %?1% OR emp.last_name LIKE %?1% OR emp.email LIKE %?1%",nativeQuery=true)
 	List<Employee>  searchData ( @Param("data") String data);
 	
 	@Transactional
@@ -28,4 +28,9 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long >  {
 	List<Employee>findByfnameContaining(String fname);
 //	List<Employee> findByEmployeeNameContainingIgnoreCase(@Param("name")String name);
 	List<Employee>findByfnameLike(String fname);
+	
+	
+	// 
+	List<Employee> findAllEmployee(String name);
+
 }

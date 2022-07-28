@@ -1,8 +1,8 @@
 package com.techtree.Crud.service;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
@@ -44,11 +44,11 @@ public interface Employeeservice {
 	//exact search
 	List<Employee> findByfnameexactContaining(String fname);
 
+	ResponseEntity<Response<List<Employee>>> findEmployeeWithSorting(String field);
+
+	ResponseEntity<Response<Page<Employee>>> findEmpByPagination(int offset, int pagesize);
 	
-//	search by feild 
-	public ResponseEntity<Response<List<Employee>>>  findEmployeeWithSorting(String field);
-		
+	ResponseEntity<List<Employee>>findByfnameAndlnameAndemailEquals(String data);
+
 	
-	// seach by pageniation
-	public  ResponseEntity<Response<Page<Employee>>> findEmpByPagination(int offset,int pagesize);
 }

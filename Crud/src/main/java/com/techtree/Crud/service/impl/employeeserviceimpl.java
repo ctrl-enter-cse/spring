@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.annotation.PostConstruct;
-
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +25,7 @@ public class employeeserviceimpl implements Employeeservice {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	
+
 //	@PostConstruct
 //	public void initDB() {
 //		List<Employee> emp = IntStream.range(1, 50)
@@ -42,24 +42,24 @@ public class employeeserviceimpl implements Employeeservice {
 
 	@Override
 	public ResponseEntity<Response<List<Employee>>> getemployeelist() {
-		ResponseEntity<Response<List<Employee>>> re = null;
-		try {
-			Response<List<Employee>> res = new Response<List<Employee>>();
-			if (employeeRepository.findAll() != null) {
-				res.setMessage("data found");
-				res.setData(employeeRepository.findAll());
-				re = new ResponseEntity<Response<List<Employee>>>(res, HttpStatus.OK);
-			} else {
-				res.setMessage("data  not found");
-				res.setData(null);
-				re = new ResponseEntity<Response<List<Employee>>>(res, HttpStatus.NOT_FOUND);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return re;
-
+//		JSONArray res = new JSONArray(employeeRepository.findAll());
+		Response<List<Employee>> res = new Response<List<Employee>>();
+		
+			res.setMessage(" List");
+			res.setData(employeeRepository.findAll());
+		
+//			 res("values",employeeRepository.findAll());
+//		JSONObject resobj = new JSONObject();
+//		resobj.put("values", employeeRepository.findAll());
+//		System.out.println(resobj);
+		return new ResponseEntity<Response<List<Employee>>>(res, HttpStatus.OK);
+//			} else {
+//				 res.put("values:",null);
+//				return new ResponseEntity<JSONObject>(res,HttpStatus.OK);
+//			}			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override
@@ -81,23 +81,23 @@ public class employeeserviceimpl implements Employeeservice {
 	@Override
 	public ResponseEntity<Response<Employee>> updateemployee(Employee employee, long id) {
 		Response<Employee> res = new Response<Employee>();
-	
+
 		if (employeeRepository.findById(id) != null) {
 			Employee empexist = employeeRepository.getById(id);
 			empexist.setFname(employee.getFname());
 			empexist.setLname(employee.getLname());
 			empexist.setEmail(employee.getEmail());
-			res.setMessage("updated");;
+			res.setMessage("updated");
+			;
 			res.setData(employeeRepository.save(empexist));
 			return new ResponseEntity<Response<Employee>>(res, HttpStatus.OK);
-		}else {
+		} else {
 			res.setMessage("not found");
 			res.setData(null);
 			return new ResponseEntity<Response<Employee>>(res, HttpStatus.NOT_FOUND);
 		}
-		
-	}
 
+	}
 
 	@Override
 	public ResponseEntity<Response<Employee>> deleteEmployee(long id) {
@@ -131,7 +131,7 @@ public class employeeserviceimpl implements Employeeservice {
 
 			res.setMessage("saved data");
 			res.setData(employeeRepository.save(employee));
-			return new  ResponseEntity<Response<Employee>>(res, HttpStatus.OK);
+			return new ResponseEntity<Response<Employee>>(res, HttpStatus.OK);
 		} else {
 			res.setMessage("error missing the data");
 			res.setData(null);
@@ -143,53 +143,61 @@ public class employeeserviceimpl implements Employeeservice {
 	@Override
 	public ResponseEntity<Response<Employee>> updateemp(Employee name, long id) {
 		Response<Employee> res = new Response<Employee>();
-		
+
 		if (employeeRepository.findById(id) != null) {
 			Employee empexist = employeeRepository.getById(id);
 			empexist.setFname(name.getFname());
 			res.setMessage("updated");
 			res.setData(employeeRepository.save(empexist));
 			return new ResponseEntity<Response<Employee>>(res, HttpStatus.OK);
-		}else {
+		} else {
 			res.setMessage("not found");
 			res.setData(null);
 			return new ResponseEntity<Response<Employee>>(res, HttpStatus.NOT_FOUND);
 		}
-		
-		
+
 	}
-	
 
 	@Override
-	public  List<Employee> findByfnameContaining(String fname) {
+	public List<Employee> findByfnameContaining(String fname) {
 //		List<Employee> results = employeeRepository.findByEmployeeNameContainingIgnoreCase(title);
 //		Response<List<Employee>> res = new Response<List<Employee>>();
 //		res.setMessage("got data");
 //		res.setData(results);
 //		assertEquals(3, results.size());	 
 //				new ResponseEntity<Response<List<Employee>>>(res, HttpStatus.OK);
-				return employeeRepository.findByfnameContaining(fname);
+		return employeeRepository.findByfnameContaining(fname);
 	}
 
 	@Override
 	public List<Employee> findByfnameexactContaining(String fname) {
-		
+
 		return employeeRepository.findByfnameLike(fname);
 	}
 
 	@Override
-	public ResponseEntity<Response<List<Employee>>>  findEmployeeWithSorting(String field) {
+	public ResponseEntity<Response<List<Employee>>> findEmployeeWithSorting(String field) {
+		// JSONObject res = new JSONObject();
+		// res.put("values:",employeeRepository.findAll(Sort.by(Sort.Direction.ASC,field)));
 		Response<List<Employee>> res = new Response<List<Employee>>();
-		res.setMessage("list foound by asc order");
-		res.setData(employeeRepository.findAll(Sort.by(Sort.Direction.ASC,field)));
-		return new ResponseEntity<Response<List<Employee>>>(res,HttpStatus.OK);
+		res.setMessage("list found by asc order ");
+		res.setData(employeeRepository.findAll(Sort.by(Sort.Direction.ASC, field)));
+		return new ResponseEntity<Response<List<Employee>>>(res, HttpStatus.OK);
 	}
 
 	@Override
 	public ResponseEntity<Response<Page<Employee>>> findEmpByPagination(int offset, int pagesize) {
 		Response<Page<Employee>> res = new Response<Page<Employee>>();
-		res.setMessage("offset of"+offset+"size"+pagesize);
+		res.setMessage("offset of " + offset + "size " + pagesize);
 		res.setData(employeeRepository.findAll(PageRequest.of(offset, pagesize)));
-		return new ResponseEntity<Response<Page<Employee>>>(res,HttpStatus.OK);
+		return new ResponseEntity<Response<Page<Employee>>>(res, HttpStatus.OK);
 	}
+
+	@Override
+	public ResponseEntity<List<Employee>> findByfnameAndlnameAndemailEquals(String Data) {
+
+		return new ResponseEntity<List<Employee>>(employeeRepository.findAllEmployee(Data), HttpStatus.OK);
+	}
+
+
 }

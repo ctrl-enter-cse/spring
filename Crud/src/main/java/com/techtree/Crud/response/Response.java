@@ -2,11 +2,10 @@ package com.techtree.Crud.response;
 
 import java.util.Optional;
 
-public class Response<T> {
+public class Response <T> {
 	private String message;
 	private T data;
-	private Optional<T> opData;
-	
+	private Optional<T> opdata;
 	public String getMessage() {
 		return message;
 	}
@@ -16,19 +15,15 @@ public class Response<T> {
 	public T getData() {
 		return data;
 	}
-	
 	public void setData(T data) {
 		this.data = data;
 	}
-	public void setOpData(Optional<T> opData) {
-		this.opData = opData;
+	public Optional<T> getOpdata() {
+		return opdata;
 	}
-	
-	public Optional<T> getOpData() {
-		return opData;
+	public void setOpData(Optional<T> opdata) {
+		this.opdata = opdata;
 	}
 
 	
-
-
 }
